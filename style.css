@@ -1,0 +1,43 @@
+.body{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+#bigBlock{
+	display: flex;
+	margin: 0;
+}
+
+#title{
+	width: 100%;
+	background-color: #ecedf9;
+	color: #15145c;
+	height: 50px;
+	border: solid 1px #15145c;
+}
+
+#play{
+	width: 20%;
+	background-color: #ecedf9;
+	color: #15145c;
+	margin: 0;
+	border: solid 1px #15145c;
+}
+
+#game{
+	width: 60%;
+	background-color: #ecedf9;
+	color: #15145c;
+	margin: 0;
+	border: solid 1px #15145c;
+}
+
+#leaderboard{
+	width: 20%;
+	background-color: #ecedf9;
+	color: #15145c;
+	margin: 0;
+	border: solid 1px #15145c;
+}
+
