@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head><link rel="stylesheet" type="text/css" href="style.css">
+<head>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>Who Wants to be a Millionaire?</title>
 </head>
 <body>
@@ -8,22 +10,36 @@
 		<h1>Who Wants to be a Millionaire?</h1>
 	</div>
 	<div id="bigBlock">
-		<div id="play">
-			<ol>
-				<li>hi</li>
-			</ol>
+		<div id="play" class="border">
+			<h2>How to Play</h2>
+			<ul>
+				<li>rule #1</li>
+			</ul>
 		</div>
 		<div id="game">
-			<p>h</p>
-			<div id="question"></div>
-			<div class="answer" id="answer1"></div>
-			<div class="answer" id="answer2"></div>
-			<div class="answer" id="answer3"></div>
-			<div class="answer" id="answer4"></div>
-			<div id="timer"></div>
+			<div id="center">
+				<div id="question">The Question</div>
+				<div id="options">
+					<div class="answer" id="answer1">A: &nbsp; <p> answer1 </p> </div>
+					<div class="answer" id="answer2">B: &nbsp; <p> answer2 </p></div>
+					<div class="answer" id="answer3">C: &nbsp; <p> answer3 </p></div>
+					<div class="answer" id="answer4">D: &nbsp; <p> answer4 </p></div>
+				</div>
+				<div id="timer"></div>
+			</div>
 		</div>
-		<div id="leaderboard">
-			<p>h</p>
+		<div id="leaderboard" class="border">
+			<h2>Leaderboard</h2>
+			<div class="hi-scores">
+				<div class="people">
+					<p>person1</p>
+					<p>person2</p>
+				</div>
+				<div class="scores">
+					<p>score1</p>
+					<p>score2</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
