@@ -1,5 +1,8 @@
-body{
+*{
 	box-sizing: border-box;
+}
+
+body{
 	margin: 0;
 	padding: 0;
 	background-color: #FAFCFF;
@@ -15,7 +18,7 @@ h2{
 	text-align: center;
 }
 
-h1, h2, p, li, div{
+h1, h2, h3, p, li, div{
 	font-family: 'Montserrat', sans-serif;
 }
 
@@ -38,12 +41,12 @@ h1, h2, p, li, div{
 }
 
 #play{
-	width: 22%;
-	margin: 0;
+	width: 0%;
+	padding: 0px;
 }
 
 #game{
-	width: 56%;
+	width: 70%;
 	margin: 0;
 	border-left: solid 2px #c2a04b;
 	border-right: solid 2px #c2a04b;
@@ -52,6 +55,7 @@ h1, h2, p, li, div{
 	align-content: center;
 	align-items: center;
 	background-color: #15145cf0;
+	order: 2;
 }
 
 #center{
@@ -68,6 +72,7 @@ h1, h2, p, li, div{
 	justify-content: center;
 	align-items: center;
 	font-size: 1.5em;
+	padding: 20px;
 }
 
 #options{
@@ -76,25 +81,29 @@ h1, h2, p, li, div{
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-content: space-between;
-	height: 150px;
-	margin: 20px 0px;
+	align-items: stretch;
+	margin: 10px 0px;
 }
 
 .answer{
-	width: calc(47% - 4px);
+	width: 47%;
 	background-image: radial-gradient(#32328d, #0a0841);
 	color: #c2a04b;
 	display: block;
-	height: 60px;
+	/* height: 60px; */
 	border: solid 2px #c2a04b;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 10px 0px;
+	padding: 25px 10px;
+	/* border-radius: 50%; */
 }
 
 .answer p{
 	color: #F6F8FF;
 	margin: 0;
+	padding-left: 6px;
 }
 
 .answer:hover > p{
@@ -104,6 +113,39 @@ h1, h2, p, li, div{
 }
 
 .answer:hover{
+	background-image: none;
+	background-color: #c2a04b;
+	color: #000;
+}
+
+.finalAnswer{
+	width: 100%;
+	background-image: radial-gradient(#32328d, #0a0841);
+	color: #c2a04b;
+	display: block;
+	/* height: 60px; */
+	border: solid 2px #c2a04b;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px 0px;
+	padding: 25px 10px;
+	/* border-radius: 50%; */
+}
+
+.finalAnswer p{
+	color: #F6F8FF;
+	margin: 0;
+	padding-left: 6px;
+}
+
+.finalAnswer:hover > p{
+	background-image: none;
+	background-color: #c2a04b;
+	color: #000;
+}
+
+.finalAnswer:hover{
 	background-image: none;
 	background-color: #c2a04b;
 	color: #000;
@@ -120,8 +162,10 @@ h1, h2, p, li, div{
 }
 
 #leaderboard{
-	width: 22%;
+	width: 30%;
 	margin: 0;
+	padding: 5px 10px;
+	order: 1;
 }
 
 .hi-scores{
@@ -139,17 +183,34 @@ h1, h2, p, li, div{
 	text-align: center;
 }
 
-@media (max-width: 850px){
+@media (max-width: 900px){
 	#bigBlock{
 		flex-direction: column;
 	}
+
 	#game, #play, #leaderboard{
 		width: 100%;
+	}
+
+	#game{
+		order: 1;
+		border-bottom: solid 2px #c2a04b;
+		padding-bottom: 20px;
+	}
+
+	#play{
+		order: 2;
+		border-bottom: solid 2px #c2a04b;
+		padding: 7px 20px;
+	}
+
+	#leaderboard{
+		order: 3;
 	}
 }
 
 @media (max-width: 650px){
-	#options{
-		flex-direction: column;
+	.answer{
+		width: 100%;
 	}
 }

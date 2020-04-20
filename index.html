@@ -3,7 +3,209 @@
 <head>
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<style type="text/css">
+		.answerChosen > p{
+			background-image: none;
+			background-color: #c2a04b;
+			color: #000;
+		}
+
+		.answerChosen{
+			background-image: none;
+			background-color: #c2a04b;
+			color: #000;
+		}
+	</style>
 	<title>Who Wants to be a Millionaire?</title>
+	<script>
+		round = 1;
+		apiCallRound = 0;
+		questionsGame = [];
+		answersGame = [];
+		correctAnswersGame = [];
+		currentAnswer = -1;
+
+		function shuffle(array) {
+		    var i = array.length,
+		        j = 0,
+		        temp;
+
+		    while (i--) {
+
+		        j = Math.floor(Math.random() * (i+1));
+
+		        // swap randomly chosen element with current element
+		        temp = array[i];
+		        array[i] = array[j];
+		        array[j] = temp;
+
+		    }
+
+		    return array;
+		}
+
+		function checkStatus(response) {
+		  if (response.ok) {
+		    return Promise.resolve(response);
+		  } else {
+		    return Promise.reject(new Error(response.statusText));
+		  }
+		}
+
+		function parseJSON(response) {
+		  return response.json();
+		}
+		
+		function apiCalls(){
+
+			const urls = [
+			  'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple',
+			  'https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple'
+			];
+
+			// use map() to perform a fetch and handle the response for each url
+			// Promise.all(urls.map(url =>
+			//   fetch(url)
+			//     .then(checkStatus)                 
+			//     .then(parseJSON)
+			//     .catch(error => console.log('There was a problem!', error))
+			// ))
+			// .then(m => {
+
+			// 		for( var i = 0; i < 5; i ++){
+			// 			questionsGame[i + (apiCallRound * 5)] = m.results[i]["question"];
+			// 			correctAnswersGame[i + (apiCallRound * 5)] = m.results[i]["correct_answer"];
+			// 			answers = [m.results[i]["correct_answer"], m.results[i]["incorrect_answers"][0],
+			// 			m.results[i]["incorrect_answers"][1],m.results[i]["incorrect_answers"][2]];
+			// 			var ranNums = shuffle(answers);
+			// 			answersGame[i + (apiCallRound * 5)] = ranNums;
+			// 		}
+			// 		apiCallRound++;
+			// 		loadDataNthRound();			
+			// 	})
+
+			request = new XMLHttpRequest();
+ 
+			request.open("GET", "https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple", true);
+
+
+			request.onreadystatechange = function() {
+	  
+				if (request.readyState == 4 && 
+					request.status == 200) 
+				{
+					theData = request.responseText;
+					m = JSON.parse(theData);
+
+					for( var i = 0; i < 5; i ++){
+						questionsGame[i] = m.results[i]["question"];
+						correctAnswersGame[i] = m.results[i]["correct_answer"];
+						answers = [m.results[i]["correct_answer"], m.results[i]["incorrect_answers"][0],
+						m.results[i]["incorrect_answers"][1],m.results[i]["incorrect_answers"][2]];
+						var ranNums = shuffle(answers);
+						answersGame[i] = ranNums;
+					}
+					loadDataNthRound();
+				}
+				else if (request.readyState == 4 && request.status != 200) 
+				{
+				   document.getElementById("timer").innerHTML += "<br>Request failed!";
+				}
+
+			}
+			request.send();		
+
+
+
+
+			 		// ***************************************************
+			// request = new XMLHttpRequest();
+ 
+			// request.open("GET", "https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple", true);
+
+
+			// request.onreadystatechange = function() {
+	  
+			// 	if (request.readyState == 4 && 
+			// 		request.status == 200) 
+			// 	{
+			// 		theData = request.responseText;
+			// 		m = JSON.parse(theData);
+			// 		for(var i = 0; i < 5; i ++){
+			// 			questionsGame[i + 5] = m.results[i]["question"];
+			// 			answers = [m.results[i]["correct_answer"], m.results[i]["incorrect_answers"][0],
+			// 			m.results[i]["incorrect_answers"][1],m.results[i]["incorrect_answers"][2]];
+			// 			var ranNums = shuffle(answers);
+			// 			answersGame[i + 5] = ranNums;
+			// 		}
+			// 	}
+			// 	else if (request.readyState == 4 && request.status != 200) 
+			// 	{
+			// 	   document.getElementById("timer").innerHTML += "<br>Request failed!";
+			// 	}
+
+			// }
+			// request.send();
+
+			// 			request = new XMLHttpRequest();
+ 
+			// request.open("GET", "https://opentdb.com/api.php?amount=4&category=9&difficulty=hard&type=multiple", true);
+
+
+			// request.onreadystatechange = function() {
+	  
+			// 	if (request.readyState == 4 && 
+			// 		request.status == 200) 
+			// 	{
+			// 		theData = request.responseText;
+			// 		m = JSON.parse(theData);
+			// 		for(var i = 0; i < 5; i ++){
+			// 			questionsGame[i + 10] = m.results[i]["question"];
+			// 			answers = [m.results[i]["correct_answer"], m.results[i]["incorrect_answers"][0],
+			// 			m.results[i]["incorrect_answers"][1],m.results[i]["incorrect_answers"][2]];
+			// 			var ranNums = shuffle(answers);
+			// 			answersGame[i + 10] = ranNums;
+			// 		}
+			// 	}
+			// 	else if (request.readyState == 4 && request.status != 200) 
+			// 	{
+			// 	   document.getElementById("timer").innerHTML += "<br>Request failed!";
+			// 	}
+
+			// }
+			// request.send();
+
+		}
+		function loadDataNthRound() {
+		
+					document.getElementById("question").innerHTML = questionsGame[round];
+					document.getElementById("answer1").getElementsByTagName('p')[0].innerHTML = answersGame[round][0];
+					document.getElementById("answer2").getElementsByTagName('p')[0].innerHTML = answersGame[round][1];
+					document.getElementById("answer3").getElementsByTagName('p')[0].innerHTML = answersGame[round][2];
+					document.getElementById("answer4").getElementsByTagName('p')[0].innerHTML = answersGame[round][3];
+					round++;
+		}  
+
+		function checkAnswer(){
+			if(answersGame[round - 1][currentAnswer - 1] === correctAnswersGame[round - 1] ){
+				//move on
+				loadDataNthRound();
+				document.getElementById("answer" + currentAnswer).classList.remove('answerChosen');
+				currentAnswer = -1;
+			}else{
+				//game over 
+			}
+		}
+		function saveAnswer(n){
+			if(currentAnswer != -1){
+				document.getElementById("answer" + currentAnswer).classList.remove('answerChosen');
+
+			}
+			currentAnswer = n + 1;
+			document.getElementById("answer" + currentAnswer).classList.add('answerChosen');
+
+		}
+	</script>
 </head>
 <body>
 	<div id="title">
@@ -11,7 +213,37 @@
 	</div>
 	<div id="bigBlock">
 		<div id="play" class="border">
-			<h2>How to Play</h2>
+ 
+		</div>
+		<div id="game">
+			<div id="center">
+				<div id="question"></div>
+				<div id="options">
+					<div class="answer" id="answer1" onclick="saveAnswer(0)">A: &nbsp; <p></p> </div>
+					<div class="answer" id="answer2" onclick="saveAnswer(1)">B: &nbsp; <p></p></div>
+					<div class="answer" id="answer3" onclick="saveAnswer(2)">C: &nbsp; <p></p></div>
+					<div class="answer" id="answer4" onclick="saveAnswer(3)">D: &nbsp; <p></p></div>
+				</div>
+					<div class="finalAnswer" id="finalAnswer" onclick="checkAnswer()">Final Answer</div>
+				<div id="timer"></div>
+				<script type="text/javascript">
+					apiCalls();
+				</script>
+			</div>
+		</div>
+		<div id="leaderboard" class="border">
+			<h2>Leaderboard</h2>
+			<div class="hi-scores">
+				<div class="people">
+					<p>person1</p>
+					<p>person2</p>
+				</div>
+				<div class="scores">
+					<p>score1</p>
+					<p>score2</p>
+				</div>
+			</div>
+						<h2>How to Play</h2>
 			<h3>Basic Rules</h3>
 			<ul>
 				<li>You will be asked a series of 14 multiple choice trivia quesitons with increasing difficulty in various topics.</li>
@@ -40,32 +272,7 @@
 				<li>Question 12 - $250,000</li>
 				<li>Question 13 - $500,000</li>
 				<li>Question 14 - $1,000,000</li>
-			</ul>  
-		</div>
-		<div id="game">
-			<div id="center">
-				<div id="question">The Question</div>
-				<div id="options">
-					<div class="answer" id="answer1">A: &nbsp; <p> answer1 </p> </div>
-					<div class="answer" id="answer2">B: &nbsp; <p> answer2 </p></div>
-					<div class="answer" id="answer3">C: &nbsp; <p> answer3 </p></div>
-					<div class="answer" id="answer4">D: &nbsp; <p> answer4 </p></div>
-				</div>
-				<div id="timer"></div>
-			</div>
-		</div>
-		<div id="leaderboard" class="border">
-			<h2>Leaderboard</h2>
-			<div class="hi-scores">
-				<div class="people">
-					<p>person1</p>
-					<p>person2</p>
-				</div>
-				<div class="scores">
-					<p>score1</p>
-					<p>score2</p>
-				</div>
-			</div>
+			</ul> 
 		</div>
 	</div>
 </body>
