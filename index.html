@@ -98,7 +98,7 @@
 
 			request = new XMLHttpRequest();
  
-			request.open("GET", "https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple", true);
+			request.open("GET", "https://opentdb.com/api.php?amount=14&category=9&difficulty=medium&type=multiple", true);
 
 
 			request.onreadystatechange = function() {
@@ -109,7 +109,7 @@
 					theData = request.responseText;
 					m = JSON.parse(theData);
 
-					for( var i = 0; i < 10; i ++){
+					for( var i = 0; i < 14; i ++){
 						questionsGame[i] = m.results[i]["question"];
 						correctAnswersGame[i] = m.results[i]["correct_answer"];
 						answers = [m.results[i]["correct_answer"], m.results[i]["incorrect_answers"][0],
@@ -218,6 +218,9 @@
 			document.getElementById("answer" + currentAnswer).classList.add('answerChosen');
 
 		}
+		function fifty(){
+
+		}
 	</script>
 </head>
 <body>
@@ -239,6 +242,7 @@
 					<div class="answer" id="answer4" onclick="saveAnswer(3)">D: &nbsp; <p></p></div>
 				</div>
 					<div class="finalAnswer" id="finalAnswer" onclick="checkAnswer()">Final Answer</div>
+					<div class="finalAnswer" id="finalAnswer" onclick="fifty()">Lifeline</div>
 				<div id="timer"></div>
 				<script type="text/javascript">
 					apiCalls();
