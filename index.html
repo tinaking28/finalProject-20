@@ -206,7 +206,7 @@
 		}
 
 		function checkAnswer(){
-			if(answersGame[round - 1][currentAnswer - 1] === correctAnswersGame[round - 1] ){
+			if(answersGame[round - 2][currentAnswer - 1] === correctAnswersGame[round - 2] ){
 				//move on
 				loadDataNthRound();
 				document.getElementById("answer" + currentAnswer).classList.remove('answerChosen');
@@ -231,10 +231,10 @@
 
 		}
 		function lifeline(){
-            var correctAnswer = correctAnswersGame[round - 1];
+            var correctAnswer = correctAnswersGame[round - 2];
             var incorrectIndices = [];
             for(var i = 0; i < 4; i++){
-                if(correctAnswer != answersGame[round - 1][i]){
+                if(correctAnswer != answersGame[round - 2][i]){
                     incorrectIndices.push(i);
                 }
             }
@@ -259,7 +259,7 @@
 
             console.log(round);
 
-            console.log(correctAnswersGame[round-1]);
+            console.log(answersGame[round-2][0]);
             console.log(correctAnswersGame[round-2]);
 		}
 
