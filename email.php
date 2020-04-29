@@ -13,7 +13,7 @@ $subject = "Your Game Results";
 $message = 
 "<p>Greetings, $name!</p>
 <p>Here are the results from your Who Wants To Be A Millonaire Game:</p>
-<p><strong>Score: </strong>$score</p>
+<p><strong>You won:</strong> $$score</p>
 <p>Please play again soon,</p>
 <p>Comp20 Webmaster</p>";
 
