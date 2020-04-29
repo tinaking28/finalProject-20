@@ -29,6 +29,10 @@ h1, h2, h3, p, li, div, input {
 	min-height: calc(100vh - 100px);
 }
 
+iframe {
+    display: none;
+}
+
 /* The Modal (background) */
 .modal {
 	display: none; /* Hidden by default */
