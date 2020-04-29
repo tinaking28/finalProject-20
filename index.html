@@ -315,7 +315,7 @@
                 <!-- You Won: $<div style="display:inline-block" id="score-output">&nbsp;</div> --> 
                 You won: $<input type="text" name="theScore" id="theScore">
                 <br /> <br />
-                <input type="submit" value="Record Score" onclick="testReload()">
+                <input type="submit" value="Record Score" onclick="SubmitForm()">
                 <br /><br />
                 <div id="modalMessage"> Click the button above to submit your score to the 
                 leaderboard, receive an email with your results, and restart the game.</div>
@@ -433,7 +433,7 @@
             }
         }
 
-        function testReload() {
+        function formReload() {
             document.getElementById("modalMessage").innerHTML = "Successfully Submitted";
             setTimeout(reloadPage, 2000);   
         
@@ -441,6 +441,16 @@
                 location.reload();
             }
         }
+		function SubmitForm(){
+			var xhttp = new XMLHttpRequest();
+			var name = document.getElementById("theName");
+			var score = document.getElementById("theScore");
+
+			xhttp.open("POST", "https://frozen-cove-32073.herokuapp.com/", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("name=" + name + "&score=" + score);
+			formReload();
+		}
     </script>
 
     <script language="jquery">
