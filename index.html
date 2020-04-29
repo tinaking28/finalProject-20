@@ -282,14 +282,19 @@
               <h2 id="popup-title">&nbsp;</h2>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="post" id="emailForm" target="frame"
+                      action="https://www.eecs.tufts.edu/~sberma04/comp20/email_test/email.php">
                 Name: <input type="text" name="theName">
                 <br /><br />
                 Email: <input type="text" name="theEmail">
                 <br /><br />
-                You Won: $<div style="display:inline-block" id="score-output">&nbsp;</div> 
+                <!-- You Won: $<div style="display:inline-block" id="score-output">&nbsp;</div> --> 
+                You won: $<input type="text" name="theScore" id="theScore">
                 <br /> <br />
                 <input type="submit" value="Record Score">
+                <br /><br />
+                Click the button above to submit your score to the leaderboard, receive an email
+                with your results, and restart the game.
                 </form>
                 </div>
             <div class="modal-footer">
@@ -298,7 +303,6 @@
           </div>
 
         </div>
-
 		<div id="play" class="border">
 
 
@@ -323,6 +327,10 @@
 			</div>
 		</div>
 		<div id="leaderboard" class="border">
+			<audio controls>
+            		<source src="theme.mp3" type="audio/mpeg">
+            		Your browser does not support the audio element.
+           		</audio>
 			<h2>Leaderboard</h2>
 			<div class="hi-scores">
 				<div class="people">
@@ -377,7 +385,9 @@
         // When the user clicks the button, open the modal 
         function endGame() {
             modal.style.display = "block";
-            document.getElementById("score-output").innerHTML = possible_scores[round - 2];
+            document.getElementById("theScore").value = possible_scores[round - 2];
+            document.getElementById("theScore").readOnly = true;
+            //console.log(possible_scores[round - 2]);
         }
 
         // When the user clicks on <span> (x), close the modal
@@ -393,6 +403,31 @@
                 location.reload();
             }
         }
+    </script>
+	
+    <script language="javascript">
+
+    $(document).ready(function () {
+
+        // Listen to submit event on the <form> itself
+        $("#emailForm").submit(function (e) {
+
+        e.preventDefault();
+
+        var name = $("#theName").val();
+        var email = $("#theEmail").val();
+        var score = $("#theScore").val();
+
+        $.post("email.php", {
+            name: name,
+            email: email,
+            score: score
+        }).complete(function() {
+            console.log("Success");
+        });
+        });
+    });
+
     </script>
 </body>
 </html>
