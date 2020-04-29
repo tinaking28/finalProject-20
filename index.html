@@ -8,6 +8,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
     <link rel="icon" href="logo.png">
+    
 	<style type="text/css">
 		.answerChosen > p{
 			background-image: none;
@@ -205,6 +206,12 @@
 				document.getElementById("answer3").getElementsByTagName('p')[0].innerHTML = answersGame[round - 1][2];
 				document.getElementById("answer4").getElementsByTagName('p')[0].innerHTML = answersGame[round - 1][3];
                 document.getElementById("winnings").innerHTML = winningsStrings[round - 1];
+
+                for (var i = 1; i < 5; i++) {
+                    document.getElementById("answer"+i).classList.remove("greyed-out-answer");
+                    document.getElementById("answer"+i).classList.add("answer");
+                    document.getElementById("answer"+i).style.pointerEvents = "auto";
+                }
             }
 			round++;
 		}
@@ -253,13 +260,24 @@
             var second = incorrectIndices[second_idx];
             second++;
 
-            document.getElementById("answer"+first).classList.add('disabled');
+            // document.getElementById("answer"+first).classList.add('disabled');
             console.log(first);
             console.log(second);
-            document.getElementById("answer"+first).getElementsByTagName('p')[0].innerHTML = "";
-            document.getElementById("answer"+second).classList.add('disabled');
+            // document.getElementById("answer"+first).getElementsByTagName('p')[0].innerHTML = "";
+            document.getElementById("answer"+first).classList.add("greyed-out-answer");
+            document.getElementById("answer"+first).classList.remove("answer");
+            document.getElementById("answer"+first).style.pointerEvents = "none";
+            // document.getElementById("answer"+second).classList.add('disabled');
 
-            document.getElementById("answer"+second).getElementsByTagName('p')[0].innerHTML = "";
+            // document.getElementById("answer"+second).getElementsByTagName('p')[0].innerHTML = "";
+            document.getElementById("answer"+second).classList.add("greyed-out-answer");
+            document.getElementById("answer"+second).classList.remove("answer");
+            document.getElementById("answer"+second).style.pointerEvents = "none";
+
+
+            document.getElementById("lifelineBtn").classList.add("greyed-out-lifeline");
+            document.getElementById("lifelineBtn").classList.remove("lifelineBtn");
+            document.getElementById("lifelineBtn").style.pointerEvents = "none";
 
             console.log(round);
 
@@ -270,9 +288,10 @@
 	</script>
 </head>
 <body>
-	<iframe name="frame"></iframe>
+
+    <iframe name="frame"></iframe>
 	<div id="title">
-		<h1>Who Wants to Be a Millionaire?</h1>
+		<h1 id="title">Who Wants to Be a Millionaire?</h1>
 	</div>
 
 	<div id="bigBlock">
@@ -296,10 +315,10 @@
                 <!-- You Won: $<div style="display:inline-block" id="score-output">&nbsp;</div> --> 
                 You won: $<input type="text" name="theScore" id="theScore">
                 <br /> <br />
-                <input type="submit" onsubmit="SubmitForm()" value="Record Score">
+                <input type="submit" value="Record Score" onclick="SubmitForm()">
                 <br /><br />
-                Click the button above to submit your score to the leaderboard, receive an email
-                with your results, and restart the game.
+                <div id="modalMessage"> Click the button above to submit your score to the 
+                leaderboard, receive an email with your results, and restart the game.</div>
                 </form>
                 </div>
             <div class="modal-footer">
@@ -308,6 +327,7 @@
           </div>
 
         </div>
+
 		<div id="play" class="border">
 
 
@@ -318,13 +338,13 @@
 				<h2 style="color: #c2a04b" id="winnings">Question 1 - Current Winnings: $0</h2>
 				<div id="question"></div>
 				<div id="options">
-					<div class="answer" id="answer1" onclick="saveAnswer(0)">A: &nbsp; <p></p> </div>
+					<div class="answer" id="answer1" onclick="saveAnswer(0)">A: &nbsp; <p></p></div>
 					<div class="answer" id="answer2" onclick="saveAnswer(1)">B: &nbsp; <p></p></div>
 					<div class="answer" id="answer3" onclick="saveAnswer(2)">C: &nbsp; <p></p></div>
 					<div class="answer" id="answer4" onclick="saveAnswer(3)">D: &nbsp; <p></p></div>
 				</div>
 					<div class="finalAnswer" id="finalAnswer" onclick="checkAnswer()">Final Answer</div>
-					<div class="finalAnswer" id="finalAnswer" onclick="lifeline()">Lifeline</div>
+					<div class="lifelineBtn" id="lifelineBtn" onclick="lifeline()">Lifeline</div>
 				<div id="timer"></div>
 				<script type="text/javascript">
 					apiCalls();
@@ -332,10 +352,14 @@
 			</div>
 		</div>
 		<div id="leaderboard" class="border">
-			<audio controls>
-            		<source src="theme.mp3" type="audio/mpeg">
-            		Your browser does not support the audio element.
-           		</audio>
+
+            <div align="center">
+                <br />
+                <audio controls>
+                <source src="theme.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+                </audio>
+            </div>
 			<h2>Leaderboard</h2>
 			<div class="hi-scores">
 				<div class="people">
@@ -409,17 +433,26 @@
             }
         }
 
-        function SubmitForm(){
-        	var xhttp = new XMLHttpRequest();
-        	var name = document.getElementById("theName");
-        	var score = document.getElementById("theScore");
+        function formReload() {
+            document.getElementById("modalMessage").innerHTML = "Successfully Submitted";
+            setTimeout(reloadPage, 2000);   
+        
+            function reloadPage() {
+                location.reload();
+            }
+        }
+		function SubmitForm(){
+			var xhttp = new XMLHttpRequest();
+			var name = document.getElementById("theName");
+			var score = document.getElementById("theScore");
 
-        	xhttp.open("POST", "https://frozen-cove-32073.herokuapp.com/", true);
+			xhttp.open("POST", "https://frozen-cove-32073.herokuapp.com/", true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhttp.send("name=" + name + "&score=" + score);
+			formReload();
 		}
     </script>
-	
+
     <script language="jquery">
 
     $(document).ready(function () {
@@ -440,7 +473,16 @@
         }).complete(function() {
             console.log("Success");
         });
+
         });
+
+        // $("div.modalMessage" ).html("Successfully Submitted");
+
+        // setTimeout(reloadPage, 3000);   
+        
+        // function reloadPage() {
+        //     location.reload();
+        // }
     });
 
     </script>
