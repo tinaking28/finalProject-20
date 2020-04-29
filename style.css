@@ -22,11 +22,12 @@ h1, h2, h3, p, li, div, input {
 	font-family: 'Montserrat', sans-serif;
 }
 
-#bigBlock{
+#bigBlock {
 	display: flex;
 	margin: 0;
 	color: #15145c;
-	min-height: calc(100vh - 100px);
+	min-height: 700px;
+	max-height: calc(100vh - 100px);
 }
 
 iframe {
@@ -142,11 +143,11 @@ iframe {
 
 #center{
 	width: 90%;
-	margin-top: 30px;
+	margin-top: 0px;
 }
 
 #question{
-	min-height: 250px;
+	min-height: 225px;
 	background-image: radial-gradient(#32328d, #0a0841);
 	color: #F6F8FF;
 	border: solid 2px #c2a04b;
@@ -200,6 +201,27 @@ iframe {
 	color: #000;
 }
 
+.greyed-out-answer{
+	width: 47%;
+	background-image: radial-gradient(#7A7676, #575353);
+	color: #32328d;
+	display: block;
+	/* height: 60px; */
+	border: solid 2px #575353;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px 0px;
+	padding: 25px 10px;
+	/* border-radius: 50%; */
+}
+
+.greyed-out-answer p{
+	color: #F6F8FF;
+	margin: 0;
+	padding-left: 6px;
+}
+
 .finalAnswer{
 	width: 100%;
 	background-image: radial-gradient(#32328d, #0a0841);
@@ -231,6 +253,60 @@ iframe {
 	background-image: none;
 	background-color: #c2a04b;
 	color: #000;
+}
+
+.lifelineBtn{
+	width: 100%;
+	background-image: radial-gradient(#32328d, #0a0841);
+	color: #c2a04b;
+	display: block;
+	/* height: 60px; */
+	border: solid 2px #c2a04b;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px 0px;
+	padding: 25px 10px;
+	/* border-radius: 50%; */
+}
+
+.lifelineBtn p{
+	color: #F6F8FF;
+	margin: 0;
+	padding-left: 6px;
+}
+
+.lifelineBtn:hover > p{
+	background-image: none;
+	background-color: #c2a04b;
+	color: #000;
+}
+
+.lifelineBtn:hover{
+	background-image: none;
+	background-color: #c2a04b;
+	color: #000;
+}
+
+.greyed-out-lifeline{
+	width: 100%;
+	background-image: radial-gradient(#7A7676, #575353);
+	color: #32328d;
+	display: block;
+	/* height: 60px; */
+	border: solid 2px #575353;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px 0px;
+	padding: 25px 10px;
+	/* border-radius: 50%; */
+}
+
+.greyed-out-lifeline p{
+	color: #c2a04b;
+	margin: 0;
+	padding-left: 6px;
 }
 
 .correct{
