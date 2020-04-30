@@ -53,7 +53,7 @@
 
         function getLeaders() {
             var xhttp = new XMLHttpRequest();
-            var urlstring = "https://frozen-cove-32073.herokuapp.com";
+            var urlstring = "https://frozen-cove-32073.herokuapp.com/";
             console.log(urlstring);
             xhttp.open("GET", urlstring, true);
 
@@ -65,7 +65,7 @@
                         document.getElementById("person" + (i + 1)).innerHTML = 
                             (i+1) + ": " + leaderData[i].name;
                         document.getElementById("score" + (i + 1)).innerHTML = 
-                            leaderData[i].score.$numberDecimal;
+                            leaderData[i].score;
                     }
                     console.log(JSON.stringify(leaderData));
                     
@@ -140,7 +140,7 @@
         }
 
         function loadDataNthRound() {
-            if (round != 3) { 
+            if (round != 15) { 
                 document.getElementById("question").innerHTML = questionsGame[round - 1];
                 document.getElementById("answer1").getElementsByTagName('p')[0].innerHTML = answersGame[round - 1][0];
                 document.getElementById("answer2").getElementsByTagName('p')[0].innerHTML = answersGame[round - 1][1];
@@ -168,7 +168,7 @@
                 document.getElementById("answer" + currentAnswer).classList.remove('answerChosen');
                 currentAnswer = -1;
                 // if at question 14 you win
-                if (round == 4){
+                if (round == 16){
                     document.getElementById("popup-title").innerHTML = "Congrats you win! You are a Millionaire!";
                     endGame();
                 }
@@ -318,16 +318,16 @@
                 <h2>Leaderboard</h2>
                 <div class="hi-scores">
                     <div class="people">
-                        <p id="person1">person1</p>
-                        <p id="person2">person2</p>
-                        <p id="person3">person3</p>
-                        <p id="person4">person4</p>
+                        <p id="person1">&nbsp;</p>
+                        <p id="person2">&nbsp;</p>
+                        <p id="person3">&nbsp;</p>
+                        <p id="person4">&nbsp;</p>
                     </div>
                     <div class="scores">
-                        <p id="score1">score1</p>
-                        <p id="score2">score2</p>
-                        <p id="score3">score3</p>
-                        <p id="score4">score4</p>
+                        <p id="score1">&nbsp;</p>
+                        <p id="score2">&nbsp;</p>
+                        <p id="score3">&nbsp;</p>
+                        <p id="score4">&nbsp;</p>
                     </div>
                 </div>
                 <h2>How to Play</h2>
