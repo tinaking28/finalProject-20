@@ -359,7 +359,6 @@ iframe {
         order: 1;
         border-bottom: solid 2px #c2a04b;
         padding-bottom: 20px;
-        height: 910px;
     }
 
     /*#play {
@@ -383,5 +382,9 @@ iframe {
 @media (max-width: 650px) {
     .answer {
         width: 100%;
+    }
+    
+    #game{
+        height: 910px;
     }
 }
