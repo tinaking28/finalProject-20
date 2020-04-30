@@ -69,7 +69,6 @@
                         document.getElementById("score" + (i + 1)).innerHTML = 
                             leaderData[i].score;
                     }
-                    console.log(JSON.stringify(leaderData));
                     
                 }
             }
@@ -220,9 +219,6 @@
             var second = incorrectIndices[second_idx];
             second++;
 
-            console.log(first);
-            console.log(second);
-
             document.getElementById("answer"+first).classList.add("greyed-out-answer");
             document.getElementById("answer"+first).classList.remove("answer");
             document.getElementById("answer"+first).style.pointerEvents = "none";
@@ -235,10 +231,6 @@
             document.getElementById("lifelineBtn").classList.remove("lifelineBtn");
             document.getElementById("lifelineBtn").style.pointerEvents = "none";
 
-            console.log(round);
-
-            console.log(answersGame[round-2][0]);
-            console.log(correctAnswersGame[round-2]);
         }
 
     </script>
@@ -406,10 +398,8 @@
             var xhttp = new XMLHttpRequest();
             var name = document.getElementById("theName").value;
             var score = document.getElementById("theScore").value;
-            console.log("name " + name + " score " + score);
             var urlstring = "https://frozen-cove-32073.herokuapp.com" 
             					+ "?name=" + name + "&score=" + score;
-            console.log(urlstring);
             xhttp.open("POST", urlstring, true);
 
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -437,7 +427,6 @@
             email: email,
             score: score
         }).complete(function() {
-            console.log("Success");
         });
 
         });
