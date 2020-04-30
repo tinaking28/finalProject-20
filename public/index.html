@@ -153,6 +153,10 @@
                     document.getElementById("answer"+i).classList.add("answer");
                     document.getElementById("answer"+i).style.pointerEvents = "auto";
                 }
+
+                document.getElementById("finalAnswer").classList.remove("finalAnswer");
+                document.getElementById("finalAnswer").classList.add("greyed-out-lifeline");
+                document.getElementById("finalAnswer").style.pointerEvents = "none";
             }
             round++;
         }
@@ -177,14 +181,25 @@
         function saveAnswer(n) {
             if(currentAnswer != -1){
                 document.getElementById("answer" + currentAnswer).classList.remove('answerChosen');
-
             }
             currentAnswer = n + 1;
             document.getElementById("answer" + currentAnswer).classList.add('answerChosen');
 
+            document.getElementById("finalAnswer").classList.remove("greyed-out-lifeline");
+            document.getElementById("finalAnswer").classList.add("finalAnswer");
+            document.getElementById("finalAnswer").style.pointerEvents = "auto";
         }
 
         function lifeline() {
+            if(currentAnswer != -1){
+                document.getElementById("answer" + currentAnswer).classList.remove('answerChosen');
+                currentAnswer = -1;
+                
+                document.getElementById("finalAnswer").classList.remove("finalAnswer");
+                document.getElementById("finalAnswer").classList.add("greyed-out-lifeline");
+                document.getElementById("finalAnswer").style.pointerEvents = "none";
+            }
+
             var correctAnswer = correctAnswersGame[round - 2];
             var incorrectIndices = [];
             for(var i = 0; i < 4; i++){
@@ -233,6 +248,7 @@
     <iframe name="frame"></iframe>
 
     <div id="title">
+        <!-- <img src="logo.png" alt="Game logo" style="width:60px;height:60px;"> -->
         <h1 id="title">Who Wants to Be a Millionaire?</h1>
     </div>
 
@@ -280,7 +296,7 @@
                     <div class="answer" id="answer3" onclick="saveAnswer(2)">C: &nbsp; <p></p></div>
                     <div class="answer" id="answer4" onclick="saveAnswer(3)">D: &nbsp; <p></p></div>
                 </div>
-                    <div class="finalAnswer" id="finalAnswer" onclick="checkAnswer()">Final Answer</div>
+                    <div class="greyed-out-lifeline" id="finalAnswer" onclick="checkAnswer()">Final Answer</div>
                     <div class="lifelineBtn" id="lifelineBtn" onclick="lifeline()">Lifeline</div>
                 <div id="timer"></div>
                 <script type="text/javascript">
@@ -289,56 +305,59 @@
             </div>
         </div>
         <div id="leaderboard" class="border">
-
-            <div align="center">
+            <div id="board-top" align="center">
+                <img src="logo.png" alt="Game logo" style="width:105px;height:100px;">
                 <br />
-                <audio controls>
+                <audio controls style="width: 230px;">
                 <source src="theme.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
                 </audio>
+                <p>Click play above to hear the Who Wants to Be a Millionaire theme song!</p>
             </div>
-            <h2>Leaderboard</h2>
-            <div class="hi-scores">
-                <div class="people">
-                    <p id="person1">person1</p>
-                    <p id="person2">person2</p>
-                    <p id="person3">person3</p>
-                    <p id="person4">person4</p>
+            <div id="board-bottom">
+                <h2>Leaderboard</h2>
+                <div class="hi-scores">
+                    <div class="people">
+                        <p id="person1">person1</p>
+                        <p id="person2">person2</p>
+                        <p id="person3">person3</p>
+                        <p id="person4">person4</p>
+                    </div>
+                    <div class="scores">
+                        <p id="score1">score1</p>
+                        <p id="score2">score2</p>
+                        <p id="score3">score3</p>
+                        <p id="score4">score4</p>
+                    </div>
                 </div>
-                <div class="scores">
-                    <p id="score1">score1</p>
-                    <p id="score2">score2</p>
-                    <p id="score3">score3</p>
-                    <p id="score4">score4</p>
-                </div>
+                <h2>How to Play</h2>
+                <h3>Basic Rules</h3>
+                <ul>
+                    <li>You will be asked a series of 14 multiple choice trivia quesitons with increasing difficulty in various topics.</li>
+                    <li>Each question will have 4 possible answers, with only one correct answer.</li>
+                    <li>To pick an answer, you need to select the desired choice, then click the "Final Answer" button below the four choices.</li>
+                    <li>One wrong answer, and its game over, so choose your answers carefully!</li>
+                </ul>
+                <h3>Lifeline</h3>
+                50/50 - you will be able to use this lifeline once, and two of the incorrect answer choices will be eliminated.
+                <h3>Payout Structure</h3>
+                <ul>
+                    <li>Question 1 - $500</li>
+                    <li>Question 2 - $1,000</li>
+                    <li>Question 3 - $2,000</li>
+                    <li>Question 4 - $3,000</li>
+                    <li>Question 5 - $5,000</li>
+                    <li>Question 6 - $7,000</li>
+                    <li>Question 7 - $10,000</li>
+                    <li>Question 8 - $20,000</li>
+                    <li>Question 9 - $30,000</li>
+                    <li>Question 10 - $50,000</li>
+                    <li>Question 11 - $100,000</li>
+                    <li>Question 12 - $250,000</li>
+                    <li>Question 13 - $500,000</li>
+                    <li>Question 14 - $1,000,000</li>
+                </ul> 
             </div>
-            <h2>How to Play</h2>
-            <h3>Basic Rules</h3>
-            <ul>
-                <li>You will be asked a series of 14 multiple choice trivia quesitons with increasing difficulty in various topics.</li>
-                <li>Each question will have 4 possible answers, with only one correct answer.</li>
-                <li>To pick an answer, you need to select the desired choice, then click the "Final Answer" button below the four choices.</li>
-                <li>One wrong answer, and its game over, so choose your answers carefully!</li>
-            </ul>
-            <h3>Lifeline</h3>
-            50/50 - you will be able to use this lifeline once, and two of the incorrect answer choices will be eliminated.
-            <h3>Payout Structure</h3>
-            <ul>
-                <li>Question 1 - $500</li>
-                <li>Question 2 - $1,000</li>
-                <li>Question 3 - $2,000</li>
-                <li>Question 4 - $3,000</li>
-                <li>Question 5 - $5,000</li>
-                <li>Question 6 - $7,000</li>
-                <li>Question 7 - $10,000</li>
-                <li>Question 8 - $20,000</li>
-                <li>Question 9 - $30,000</li>
-                <li>Question 10 - $50,000</li>
-                <li>Question 11 - $100,000</li>
-                <li>Question 12 - $250,000</li>
-                <li>Question 13 - $500,000</li>
-                <li>Question 14 - $1,000,000</li>
-            </ul> 
         </div>
     </div>
 
@@ -372,7 +391,8 @@
         }
 
         function formReload() {
-            document.getElementById("modalMessage").innerHTML = "Successfully Submitted";
+            document.getElementById("modalMessage").innerHTML = 
+            "<div style='color: #F15555'>Successfully Submitted! (Game will restart momentarily)</div>";
             setTimeout(reloadPage, 2000);   
         
             function reloadPage() {
