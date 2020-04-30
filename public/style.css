@@ -115,7 +115,7 @@ iframe {
     display: flex;
     justify-content: center;
     align-items: center;
-/*     box-shadow: 0px 3px 5px #c2a04b; */
+    /*box-shadow: 0px 3px 5px #c2a04b; */
 }
 
 #play {
@@ -307,7 +307,6 @@ iframe {
 #leaderboard {
     width: 30%;
     margin: 0;
-    padding: 0px 15px 10px;
     order: 1;
     overflow-y: scroll;
     position: relative;
@@ -322,11 +321,14 @@ iframe {
     padding-top: 10px;
     z-index: 900;
     background-color: #FAFCFF;
+    padding-bottom: 5px;
+    box-shadow: 0px 3px 5px #c2a04b;
 }
 
 #board-bottom {
     order: 1;
     position: relative;
+    padding: 0px 20px 20px 20px;
 }
 
 .hi-scores {
