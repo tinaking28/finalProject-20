@@ -47,7 +47,19 @@
         possible_scores = [0, 500, 1000, 2000, 3000, 5000, 7000, 10000, 20000,
                            30000, 50000, 100000, 250000, 500000, 1000000];      
 
+        function getLeaders(){
+        	var xhttp = new XMLHttpRequest();
+			var urlstring = "http://localhost:8080/leaderboard";
+			console.log(urlstring);
+			xhttp.open("GET", urlstring, true);
+			// xhttp.open("POST", "https://frozen-cove-32073.herokuapp.com/", true);
 
+			// xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send();
+			var leaderData = xhttp.responseText;
+			var dataLeaders = leaderData.json();
+			console.log(dataLeaders);
+        }
 		function shuffle(array) {
 		    var i = array.length,
 		        j = 0,
@@ -80,31 +92,6 @@
 		}
 		
 		function apiCalls(){
-
-			// const urls = [
-			//   'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple',
-			//   'https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple'
-			// ];
-
-			// // use map() to perform a fetch and handle the response for each url
-			// Promise.all(urls.map(url =>
-			//   fetch(url)
-			//     .then(checkStatus)                 
-			//     .then(parseJSON)
-			//     .catch(error => console.log('There was a problem!', error))
-			// )
-			// .then(m => {
-			// 		for( var i = 0; i < 5; i ++){
-			// 			questionsGame[i + (apiCallRound * 5)] = m.results[i]["question"];
-			// 			correctAnswersGame[i + (apiCallRound * 5)] = m.results[i]["correct_answer"];
-			// 			answers = [m.results[i]["correct_answer"], m.results[i]["incorrect_answers"][0], m.results[i]["incorrect_answers"][1], m.results[i]["incorrect_answers"][2]];
-			// 			var ranNums = shuffle(answers);
-			// 			answersGame[i + (apiCallRound * 5)] = ranNums;
-			// 		}
-			// 		apiCallRound++;
-			// 		loadDataNthRound();			
-			// 	})
-
 			request = new XMLHttpRequest();
  
 			request.open("GET", "https://opentdb.com/api.php?amount=14&category=9&difficulty=easy&type=multiple", true);
@@ -137,65 +124,6 @@
 			}
 			request.send();		
 
-
-
-
-			//  		// ***************************************************
-			// request = new XMLHttpRequest();
- 
-			// request.open("GET", "https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple", true);
-
-
-			// request.onreadystatechange = function() {
-	  
-			// 	if (request.readyState == 4 && 
-			// 		request.status == 200) 
-			// 	{
-			// 		theData = request.responseText;
-			// 		m = JSON.parse(theData);
-			// 		for(var i = 0; i < 5; i ++){
-			// 			questionsGame[i + 5] = m.results[i]["question"];
-			// 			answers = [m.results[i]["correct_answer"], m.results[i]["incorrect_answers"][0],
-			// 			m.results[i]["incorrect_answers"][1],m.results[i]["incorrect_answers"][2]];
-			// 			var ranNums = shuffle(answers);
-			// 			answersGame[i + 5] = ranNums;
-			// 		}
-			// 	}
-			// 	else if (request.readyState == 4 && request.status != 200) 
-			// 	{
-			// 	   document.getElementById("timer").innerHTML += "<br>Request failed!";
-			// 	}
-
-			// }
-			// request.send();
-
-			// 			request = new XMLHttpRequest();
- 
-			// request.open("GET", "https://opentdb.com/api.php?amount=4&category=9&difficulty=hard&type=multiple", true);
-
-
-			// request.onreadystatechange = function() {
-	  
-			// 	if (request.readyState == 4 && 
-			// 		request.status == 200) 
-			// 	{
-			// 		theData = request.responseText;
-			// 		m = JSON.parse(theData);
-			// 		for(var i = 0; i < 5; i ++){
-			// 			questionsGame[i + 10] = m.results[i]["question"];
-			// 			answers = [m.results[i]["correct_answer"], m.results[i]["incorrect_answers"][0],
-			// 			m.results[i]["incorrect_answers"][1],m.results[i]["incorrect_answers"][2]];
-			// 			var ranNums = shuffle(answers);
-			// 			answersGame[i + 10] = ranNums;
-			// 		}
-			// 	}
-			// 	else if (request.readyState == 4 && request.status != 200) 
-			// 	{
-			// 	   document.getElementById("timer").innerHTML += "<br>Request failed!";
-			// 	}
-
-			// }
-			// request.send();
 
 		}
 		function loadDataNthRound() {
@@ -287,7 +215,7 @@
 
 	</script>
 </head>
-<body>
+<body onload="getLeaders()">
 
     <iframe name="frame"></iframe>
 	<div id="title">
@@ -306,8 +234,8 @@
               <h2 id="popup-title">&nbsp;</h2>
             </div>
             <div class="modal-body">
-                <form method="post" id="emailForm" target="frame"
-                      action="https://www.eecs.tufts.edu/~sberma04/comp20/email_test/email.php">
+                <form method="post" id="emailForm" target="frame" 
+                	  action="https://www.eecs.tufts.edu/~sberma04/comp20/email_test/email.php">
                 Name: <input type="text" name="theName" id="theName">
                 <br /><br />
                 Email: <input type="text" name="theEmail">
@@ -443,13 +371,18 @@
         }
 		function SubmitForm(){
 			var xhttp = new XMLHttpRequest();
-			var name = document.getElementById("theName");
-			var score = document.getElementById("theScore");
+			var name = document.getElementById("theName").value;
+			var score = document.getElementById("theScore").value;
+			console.log("name " + name + " score " + score);
+			var urlstring = "http://localhost:8080/example" + "?name=" + name + "&score=" + score;
+			console.log(urlstring);
+			xhttp.open("POST", urlstring, true);
+			// xhttp.open("POST", "https://frozen-cove-32073.herokuapp.com/", true);
 
-			xhttp.open("POST", "https://frozen-cove-32073.herokuapp.com/", true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("name=" + name + "&score=" + score);
+			xhttp.send();
 			formReload();
+
 		}
     </script>
 
