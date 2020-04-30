@@ -359,6 +359,7 @@ iframe {
         order: 1;
         border-bottom: solid 2px #c2a04b;
         padding-bottom: 20px;
+        height: 910px;
     }
 
     /*#play {
@@ -372,6 +373,10 @@ iframe {
         order: 3;
         overflow-y: visible;
         padding: 20px 35px;
+    }
+    
+    #board-bottom{
+        overflow-y: visible;
     }
 }
 
