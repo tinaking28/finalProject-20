@@ -49,16 +49,29 @@
 
         function getLeaders(){
         	var xhttp = new XMLHttpRequest();
-			var urlstring = "http://localhost:8080/leaderboard";
+			var urlstring = "https://frozen-cove-32073.herokuapp.com/";
 			console.log(urlstring);
 			xhttp.open("GET", urlstring, true);
 			// xhttp.open("POST", "https://frozen-cove-32073.herokuapp.com/", true);
 
 			// xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.onreadystatechange = function() {
+	  
+				if (xhttp.readyState == 4 && xhttp.status == 200) {			
+					var leaderData = JSON.parse(xhttp.responseText);
+					for(var i = 0; i < 4; i++){
+						document.getElementById("person" + (i + 1)).innerHTML = 
+							(i+1) + ": " + leaderData[i].name;
+						document.getElementById("score" + (i + 1)).innerHTML = 
+							leaderData[i].score.$numberDecimal;
+					}
+					console.log(JSON.stringify(leaderData));
+					
+				}
+			}
 			xhttp.send();
-			var leaderData = xhttp.responseText;
-			var dataLeaders = leaderData.json();
-			console.log(dataLeaders);
+
+
         }
 		function shuffle(array) {
 		    var i = array.length,
@@ -107,8 +120,7 @@
 
 					for( var i = 0; i < 14; i ++){
 						questionsGame[i] = m.results[i]["question"];
-                        console.log(questionsGame[i]);
-						correctAnswersGame[i] = m.results[i]["correct_answer"];
+ 						correctAnswersGame[i] = m.results[i]["correct_answer"];
 						answers = [m.results[i]["correct_answer"], m.results[i]["incorrect_answers"][0],
 						m.results[i]["incorrect_answers"][1],m.results[i]["incorrect_answers"][2]];
 						var ranNums = shuffle(answers);
@@ -291,12 +303,17 @@
 			<h2>Leaderboard</h2>
 			<div class="hi-scores">
 				<div class="people">
-					<p>person1</p>
-					<p>person2</p>
+					<p id="person1">person1</p>
+					<p id="person2">person2</p>
+					<p id="person3">person3</p>
+					<p id="person4">person4</p>
+
 				</div>
 				<div class="scores">
-					<p>score1</p>
-					<p>score2</p>
+					<p id="score1">score1</p>
+					<p id="score2">score2</p>
+					<p id="score3">score3</p>
+					<p id="score4">score4</p>
 				</div>
 			</div>
 						<h2>How to Play</h2>
@@ -374,7 +391,7 @@
 			var name = document.getElementById("theName").value;
 			var score = document.getElementById("theScore").value;
 			console.log("name " + name + " score " + score);
-			var urlstring = "http://localhost:8080/example" + "?name=" + name + "&score=" + score;
+			var urlstring = "https://frozen-cove-32073.herokuapp.com/example" + "?name=" + name + "&score=" + score;
 			console.log(urlstring);
 			xhttp.open("POST", urlstring, true);
 			// xhttp.open("POST", "https://frozen-cove-32073.herokuapp.com/", true);
