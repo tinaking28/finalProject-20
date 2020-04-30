@@ -380,7 +380,7 @@ iframe {
 }
 
 @media (max-width: 650px) {
-    .answer {
+    .answer, .greyed-out-answer {
         width: 100%;
     }
     
