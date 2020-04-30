@@ -307,9 +307,25 @@ iframe {
 #leaderboard {
     width: 30%;
     margin: 0;
-    padding: 5px 10px;
+    padding: 10px 15px;
     order: 1;
     overflow-y: scroll;
+    position: relative;
+}
+
+#board-top {
+    order: 2;
+    overflow-y: visible;
+    position: fixed;
+    z-index: 900;
+    width: 300px;
+    background-color: #FAFCFF;
+}
+
+#board-bottom {
+    order: 1;
+    position: relative;
+    top: 300px;
 }
 
 .hi-scores {
@@ -342,14 +358,17 @@ iframe {
         padding-bottom: 20px;
     }
 
-    #play {
+    /*#play {
         order: 2;
         border-bottom: solid 2px #c2a04b;
         padding: 7px 20px;
-    }
+
+    }*/
 
     #leaderboard {
         order: 3;
+        overflow-y: visible;
+        padding: 20px 35px;
     }
 }
 
