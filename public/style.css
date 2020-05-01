@@ -383,8 +383,12 @@ iframe {
     .answer, .greyed-out-answer {
         width: 100%;
     }
-    
-    #game{
+     #leaderboard {
+        order: 3;
+        overflow-y: auto;
+        padding: 20px 35px;
+    }
+    #bigBlock{
         height: 910px;
     }
 }
