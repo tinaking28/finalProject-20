@@ -384,7 +384,7 @@ iframe {
         width: 100%;
     }
     #game{
-        max-height: 910px;
+        min-height: 910px;
     }
     #bigBlock{
         min-height: 910px;
