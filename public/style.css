@@ -387,6 +387,9 @@ iframe {
         max-height: 910px;
     }
     #bigBlock{
-        height: 910px;
+        min-height: 910px;
+    }
+    #leaderboard {
+        min-height: 300px;
     }
 }
