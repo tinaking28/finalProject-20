@@ -346,7 +346,7 @@ iframe {
     text-align: center;
 }
 
-@media (max-width: 900px) {
+@media screen and (max-width: 900px) {
     #bigBlock{
         flex-direction: column;
     }
@@ -379,7 +379,7 @@ iframe {
     }
 }
 
-@media (max-width: 650px) {
+@media screen and (max-width: 650px) {
     .answer, .greyed-out-answer {
         width: 100%;
     }
